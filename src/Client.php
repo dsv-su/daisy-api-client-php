@@ -5,7 +5,7 @@ class Client {
   private static $guzzle;
 
   static function init(array $config) {
-    static::$guzzle = new GuzzleHttp\Client([
+    static::$guzzle = new \GuzzleHttp\Client([
       'base_url' => $config['url'],
       'defaults' => [
         'headers' => [
