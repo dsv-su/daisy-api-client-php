@@ -2,11 +2,11 @@
 namespace DsvSu\Daisy;
 
 class Person extends Resource {
-  static function getById(int $id) {
+  static function getById($id) {
     new static(Client::get("person/$id"));
   }
 
-  static function getByUsername(string $username) {
+  static function getByUsername($username) {
     new static(Client::get("person/username/$username"));
   }
 

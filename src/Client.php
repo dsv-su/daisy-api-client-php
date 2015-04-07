@@ -4,7 +4,7 @@ namespace DsvSu\Daisy;
 class Client {
   private static $guzzle;
 
-  static function init($config) {
+  static function init(array $config) {
     static::$guzzle = new GuzzleHttp\Client([
       'base_url' => $config['url'],
       'defaults' => [
@@ -21,7 +21,7 @@ class Client {
     init($config);
   }
 
-  static function get($path, $query = []) {
+  static function get($path, array $query = []) {
     if (!isset(static::$guzzle)) {
       initUsingConfigFile();
     }
