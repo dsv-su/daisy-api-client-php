@@ -10,5 +10,10 @@
     ],
     "require": {
         "guzzlehttp/guzzle": "~5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "DaisyApiClient\\": "src/"
+        }
     }
 }
