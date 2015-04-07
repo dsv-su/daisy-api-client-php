@@ -1,9 +1,11 @@
 <?php
-namespace DaisyApiClient;
+namespace DsvSu\Daisy;
 
 class Client {
-  function __construct($config) {
-    $this->guzzle = new GuzzleHttp\Client([
+  private static $guzzle;
+
+  static function init($config) {
+    static::$guzzle = new GuzzleHttp\Client([
       'base_url' => $config['url'],
       'defaults' => [
         'headers' => [
@@ -14,25 +16,15 @@ class Client {
     ]);
   }
 
-  static function createUsingConfigFile($file) {
+  static function initUsingConfigFile($file = 'daisy_api_config.json') {
     $config = json_decode(file_get_contents($file), TRUE);
-    return new static($config);
+    init($config);
   }
 
-  function get($url, $query = []) {
-    $request = $this->guzzle->createRequest('GET', $url, ['query' => $query]);
-    return $this->guzzle->send($request)->json();
-  }
-
-  function getSchedule($room_id, $days) {
-    return $this->get('schedule', [
-      'room'  => $room_id,
-      'start' => date("Y-m-d", time()),
-      'end'   => date("Y-m-d", strtotime("$days weekdays"))
-    ]);
-  }
-
-  function getCourseSegmentInstance($id) {
-    return $this->get("courseSegment/$id");
+  static function get($path, $query = []) {
+    if (!isset(static::$guzzle)) {
+      initUsingConfigFile();
+    }
+    return static::$guzzle->get($path, ['query' => $query])->json();
   }
 }
