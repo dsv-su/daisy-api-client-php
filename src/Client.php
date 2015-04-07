@@ -18,12 +18,12 @@ class Client {
 
   static function initUsingConfigFile($file = 'daisy_api_config.json') {
     $config = json_decode(file_get_contents($file), TRUE);
-    init($config);
+    static::init($config);
   }
 
   static function get($path, array $query = []) {
     if (!isset(static::$guzzle)) {
-      initUsingConfigFile();
+      static::initUsingConfigFile();
     }
     return static::$guzzle->get($path, ['query' => $query])->json();
   }
