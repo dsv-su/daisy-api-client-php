@@ -6,12 +6,12 @@ class Client {
 
   static function init(array $config) {
     static::$guzzle = new \GuzzleHttp\Client([
-      'exceptions' => FALSE,
       'base_url' => $config['url'],
       'defaults' => [
         'headers' => [
           'Accept' => 'application/json',
         ],
+        'exceptions' => FALSE,
         'auth' => [$config['user'], $config['pass']]
       ]
     ]);
