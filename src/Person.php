@@ -7,7 +7,8 @@ class Person extends Resource {
   }
 
   static function getByUsername($username) {
-    return new static(Client::get("person/username/$username"));
+    $data = Client::get("person/username/$username");
+    return $data === NULL ? NULL : new static($data);
   }
 
   function getUsernames() {
