@@ -6,6 +6,7 @@ class Client {
 
   static function init(array $config) {
     static::$guzzle = new \GuzzleHttp\Client([
+      'exceptions' => FALSE,
       'base_url' => $config['url'],
       'defaults' => [
         'headers' => [
@@ -25,6 +26,14 @@ class Client {
     if (!isset(static::$guzzle)) {
       static::initUsingConfigFile();
     }
-    return static::$guzzle->get($path, ['query' => $query])->json();
+    $response = static::$guzzle->get($path, ['query' => $query]);
+    switch ($response->getStatusCode()) {
+      case 200:
+        return $response->json();
+      case 404:
+        return NULL;
+      default:
+        throw new ServerException($response->getStatusCode() . " " . $response->getReasonPhrase());
+    }
   }
 }
