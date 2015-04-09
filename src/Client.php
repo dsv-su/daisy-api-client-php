@@ -17,7 +17,7 @@ class Client {
     ]);
   }
 
-  static function initUsingConfigFile($file = 'daisy_api_config.json') {
+  static function initUsingConfigFile($file = 'daisy_api.json') {
     $config = json_decode(file_get_contents($file), TRUE);
     static::init($config);
   }
