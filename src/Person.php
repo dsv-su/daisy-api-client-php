@@ -25,7 +25,7 @@ class Person extends Resource {
 
     foreach ($principals as $p) {
       if (strtolower($p['realm']) == $domain) {
-        return $u['username'];
+        return $p['username'];
       }
     }
     return NULL;
