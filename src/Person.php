@@ -24,7 +24,7 @@ class Person extends Resource {
     $principals = $this->getPrincipals();
 
     foreach ($principals as $p) {
-      if (tolower($p['realm']) == $domain) {
+      if (strtolower($p['realm']) == $domain) {
         return $u['username'];
       }
     }
