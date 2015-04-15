@@ -12,7 +12,7 @@ class Person extends Resource {
   }
 
   static function findByUsername($username, $domain = 'su.se') {
-    return static::getByPrincipalName("${username}@$domain");
+    return static::findByPrincipalName("${username}@$domain");
   }
 
   function getPrincipals() {
