@@ -22,11 +22,11 @@ class Event extends Resource {
   }
 
   function getStart() {
-    return new DateTime("@".$this->data['start']/1000);
+    return new DateTime("@".intval($this->data['start']/1000));
   }
 
   function getEnd() {
-    return new DateTime("@".$this->data['end']/1000);
+    return new DateTime("@".intval($this->data['end']/1000));
   }
 
 }
