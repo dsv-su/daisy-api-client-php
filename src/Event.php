@@ -18,6 +18,6 @@ class Event extends Resource {
   function getCourseSegmentInstances() {
     return array_map(function ($csi) {
       return CourseSegmentInstance::getById($csi['id']);
-    }, $data['courseSegmentInstances']);
+    }, $this->data['courseSegmentInstances']);
   }
 }
