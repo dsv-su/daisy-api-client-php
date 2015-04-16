@@ -1,11 +1,13 @@
 <?php
 namespace DsvSu\Daisy;
 use \DateTime;
+use \DateInterval;
 
 class Event extends Resource {
   static function find($room, DateTime $start, DateTime $end = NULL) {
     if (is_null($end)) {
-      $end = $start;
+      $end = clone $start;
+      $end->add(new DateInterval('P1D'));
     }
     $events = Client::get('schedule', [
       'room' => $room,
