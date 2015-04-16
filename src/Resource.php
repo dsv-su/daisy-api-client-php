@@ -14,7 +14,9 @@ class Resource {
     return $this->data['id'];
   }
 
-  static function parseDateTime($ts) {
-    return \DateTime::createFromFormat("U", substr(strval($ts), 0, -3));
+  static  function parseDateTime($ts) {
+    $dt = new \DateTime();
+    $dt->setTimestamp(intval($ts / 1000));
+    return $dt;
   }
 }
