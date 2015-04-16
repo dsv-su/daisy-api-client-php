@@ -15,6 +15,6 @@ class Resource {
   }
 
   static function parseDateTime($ts) {
-    return \DateTime::createFromFormat("U???", strval($ts));
+    return \DateTime::createFromFormat("U", substr(strval($ts), 0, -3));
   }
 }
