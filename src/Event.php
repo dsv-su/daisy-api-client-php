@@ -14,4 +14,10 @@ class Event extends Resource {
     ]);
     return array_map(function ($data) { return new static($data); }, $events);
   }
+
+  function getCourseSegmentInstances() {
+    return array_map(function ($csi) {
+      return CourseSegmentInstance::getById($csi['id']);
+    }, $data['courseSegmentInstances']);
+  }
 }
