@@ -21,6 +21,10 @@ class Event extends Resource {
     }, $this->data['courseSegmentInstances']);
   }
 
+  function getDescription() {
+    return $this->data['description'];
+  }
+
   function getStart() {
     return new DateTime("@".intval($this->data['start']/1000));
   }
