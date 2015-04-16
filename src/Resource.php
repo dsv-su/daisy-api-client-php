@@ -14,7 +14,7 @@ class Resource {
     return $this->data['id'];
   }
 
-  static  function parseDateTime($ts) {
+  static function parseDateTime($ts) {
     $dt = new \DateTime();
     $dt->setTimestamp(intval($ts / 1000));
     return $dt;
