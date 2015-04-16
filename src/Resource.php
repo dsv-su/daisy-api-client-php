@@ -13,4 +13,8 @@ class Resource {
   function getId() {
     return $this->data['id'];
   }
+
+  static function parseDateTime($ts) {
+    return new \DateTime::createFromFormat("U???", strval($ts));
+  }
 }

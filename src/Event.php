@@ -26,11 +26,11 @@ class Event extends Resource {
   }
 
   function getStart() {
-    return new DateTime("@".intval($this->data['start']/1000));
+    return self::parseDateTime($this->data['start']);
   }
 
   function getEnd() {
-    return new DateTime("@".intval($this->data['end']/1000));
+    return self::parseDateTime($this->data['end']);
   }
 
 }
