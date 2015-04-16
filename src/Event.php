@@ -20,4 +20,13 @@ class Event extends Resource {
       return CourseSegmentInstance::getById($csi['id']);
     }, $this->data['courseSegmentInstances']);
   }
+
+  function getStart() {
+    return new DateTime("@".$this->data['start']/1000);
+  }
+
+  function getEnd() {
+    return new DateTime("@".$this->data['end']/1000);
+  }
+
 }
