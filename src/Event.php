@@ -75,6 +75,27 @@ class Event extends Resource {
     }
   }
 
+  function getEducationalEventTitle($lang = 'en') {
+    if ($this->getEducationalType() != NULL) {
+      $type = self::$EDUCATIONAL_TYPES[$lang][$this->getEducationalType()];
+      $number = $this->get('sequenceNumber');
+      $groupNum = $this->get('groupNumber');
+
+      $groupInfo = '';      
+      if ($groupNum != NULL) {
+	if($lang == 'en') {
+	  $groupInfo = ' group ';
+	} else if ($lang == 'sv') {
+	  $groupInfo = ' grupp ';
+	}
+	$groupInfo .= $groupNum;
+      }
+      return $type.' '.$number.$group;
+    } else {
+      return NULL;
+    }
+  }
+
   function getTitle($lang = 'en') {
     $t = $this->getEducationalTypeName($lang) . ' ' . $this->get('sequenceNumber');
     if ($this->get('groupNumber') !== NULL) {
