@@ -90,7 +90,7 @@ class Event extends Resource {
 	}
 	$groupInfo .= $groupNum;
       }
-      return $type.' '.$number.$group;
+      return $type.' '.$number.$groupInfo;
     } else {
       return NULL;
     }
