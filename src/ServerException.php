@@ -1,5 +1,6 @@
 <?php
 namespace DsvSu\Daisy;
 
-class ServerException extends \Exception {
+class ServerException extends \Exception
+{
 }

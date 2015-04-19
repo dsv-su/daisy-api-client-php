@@ -1,26 +1,31 @@
 <?php
 namespace DsvSu\Daisy;
 
-class Resource {
-  function __construct(array $data) {
-    $this->data = $data;
-  }
+abstract class Resource {
+    protected function __construct(array $data)
+    {
+        $this->data = $data;
+    }
 
-  function getData() {
-    return $this->data;
-  }
+    public function getData()
+    {
+        return $this->data;
+    }
 
-  function getId() {
-    return $this->data['id'];
-  }
+    public function getId()
+    {
+        return $this->data['id'];
+    }
 
-  function get($key) {
-    return isset($this->data[$key]) ? $this->data[$key] : NULL;
-  }
+    public function get($key)
+    {
+        return isset($this->data[$key]) ? $this->data[$key] : null;
+    }
 
-  static function parseDateTime($ts) {
-    $dt = new \DateTime();
-    $dt->setTimestamp(intval($ts / 1000));
-    return $dt;
-  }
+    protected static function parseDateTime($ts)
+    {
+        $dt = new \DateTime();
+        $dt->setTimestamp(intval($ts / 1000));
+        return $dt;
+    }
 }
