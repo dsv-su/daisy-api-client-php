@@ -15,7 +15,7 @@ abstract class EduType
     const PROJECT = 10;
     const WORKSHOP = 11;
 
-    private static $EDUCATIONAL_TYPES = [
+    private static $EDUCATIONAL_NAMES = [
         'en' => [
             self::TEACHING_SESSION => 'Teaching session',
             self::SEMINAR => 'Seminar',
@@ -32,6 +32,6 @@ abstract class EduType
     ];
 
     public static function getName($type, $lang = 'en') {
-        return $EDUCATIONAL_TYPES[$lang][$type];
+        return $EDUCATIONAL_NAMES[$lang][$type];
     }
 }

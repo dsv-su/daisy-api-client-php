@@ -53,7 +53,7 @@ class Event extends Resource
     public function getEducationalTypeName($lang = 'en')
     {
         if ($this->getEducationalType()) {
-            return EduType::getName($this->getEducationalType());
+            return EduType::getName($this->getEducationalType(), $lang);
         } else {
             return null;
         }
