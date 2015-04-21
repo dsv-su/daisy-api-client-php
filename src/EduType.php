@@ -31,7 +31,7 @@ abstract class EduType
         ]
     ];
 
-    public static getName($type, $lang = 'en') {
+    public static function getName($type, $lang = 'en') {
         return $EDUCATIONAL_TYPES[$lang][$type];
     }
 }
