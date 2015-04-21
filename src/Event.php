@@ -91,12 +91,14 @@ class Event extends Resource
             case ScheduleType::PRIORITY:
             case ScheduleType::WRITTEN_EXAM:
             case ScheduleType::HAND_IN:
-            case ScheduleType::OTHER:
                 return ScheduleType::getName($schedType, $lang);
 
             case ScheduleType::ROOM_BOOKING:
                 return $this->get('title');
 
+            case ScheduleType::OTHER:
+                return trim($this->get('title').' '.$this->getGroup($lang));
+                
         }
         return null;
     }
