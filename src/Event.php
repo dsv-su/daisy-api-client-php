@@ -52,7 +52,7 @@ class Event extends Resource
 
     public function getEducationalTypeName($lang = 'en')
     {
-        if ($this->getEducationalType() !== null) {
+        if ($this->getEducationalType()) {
             return EduType::getName($this->getEducationalType());
         } else {
             return null;
@@ -85,7 +85,7 @@ class Event extends Resource
         $schedType = $this->getScheduleType();
         switch($schedType) {
             case ScheduleType::EDUCATION:
-                $type = EduType::getName($this->getEducationalTypeName(), $lang);
+                $type = $this->getEducationalTypeName($lang);
                 return trim($type.' '.$this->getSequenceNumber().' '.$this->getGroup($lang));
                 
             case ScheduleType::PRIORITY:

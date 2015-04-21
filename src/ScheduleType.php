@@ -11,7 +11,7 @@ abstract class ScheduleType
     const PRIORITY = 400;
     const OTHER = 500;
 
-    private static $SCHEDULE_TYPES = [
+    private static $SCHEDULE_NAMES = [
         'en' => [
             self::UNDEFINED => 'Undefined',
             self::EDUCATION => 'Education',
@@ -23,7 +23,8 @@ abstract class ScheduleType
         ]
     ];
 
-    public static function getName($type, $lang = 'en') {
-        return $SCHEDULE_TYPES[$lang][$type];
+    public static function getName($type, $lang = 'en')
+    {
+        return $SCHEDULE_NAMES[$lang][$type];
     }
 }
