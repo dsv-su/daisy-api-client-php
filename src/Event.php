@@ -85,7 +85,7 @@ class Event extends Resource
         $schedType = $this->getScheduleType();
         switch($schedType) {
             case ScheduleType::EDUCATION:
-                $type = EduType::getName($this->getEducationalType(), $lang);
+                $type = EduType::getName($this->getEducationalTypeName(), $lang);
                 return trim($type.' '.$this->getSequenceNumber().' '.$this->getGroup($lang));
                 
             case ScheduleType::PRIORITY:
