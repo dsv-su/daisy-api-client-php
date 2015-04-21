@@ -25,6 +25,6 @@ abstract class ScheduleType
 
     public static function getName($type, $lang = 'en')
     {
-        return $SCHEDULE_NAMES[$lang][$type];
+        return self::$SCHEDULE_NAMES[$lang][$type];
     }
 }
