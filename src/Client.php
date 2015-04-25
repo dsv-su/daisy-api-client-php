@@ -42,4 +42,9 @@ class Client
                 );
         }
     }
+
+    public static function getGuzzle()
+    {
+        return self::$guzzle;
+    }
 }
