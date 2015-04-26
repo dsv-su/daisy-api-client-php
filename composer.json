@@ -14,7 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "DsvSu\\Daisy\\": "src/"
+            "DsvSu\\Daisy\\": "src/",
+            "DsvSu\\Daisy\\Tests\\": "tests/"
         }
     },
     "require-dev": {
