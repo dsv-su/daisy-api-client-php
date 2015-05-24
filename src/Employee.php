@@ -52,7 +52,8 @@ class Employee extends Resource
 
     public function getWorkPhone()
     {
-        return $this->get('workPhone');
+        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        return $phoneUtil->parse($this->get('workPhone'), 'SE');
     }
 
     public function getTitle($lang = 'sv')
@@ -70,48 +71,5 @@ class Employee extends Resource
     public function getPerson()
     {
         return $this->person;
-    }
-
-    /**
-     * Get the complete work phone number, including country code prefix.
-     */
-    public function getCompleteWorkPhone()
-    {
-        if (!isset($this->completeWorkPhone)) {
-            $p = $this->getWorkPhone();
-            if (empty($p)) {
-                $this->completeWorkPhone = null;
-            } else {
-                $p = str_replace(['-', ' ', '(', ')'], '', $p);
-                if (strlen($p) === 4) $p = '16' . $p;
-                if ($p[0] !== '+' && $p[0] !== '0') $p = '8' . $p;
-                if ($p[0] === '0') $p = substr($p, 1);
-                if ($p[0] !== '+') $p = '+46' . $p;
-                $this->completeWorkPhone = $p;
-            }
-        }
-        return $this->completeWorkPhone;
-    }
-
-    /**
-     * Get the extension for the work phone number.
-     */
-    public function getWorkPhoneExtension()
-    {
-        if (!isset($this->workPhoneExtension)) {
-            $cp = $this->getCompleteWorkPhone();
-            if (empty($cp)) {
-                $this->workPhoneExtension = null;
-            } else {
-                if (substr($cp, 0, 3) === '+46') $cp = '0' . substr($cp, 3);
-                if (substr($cp, 0, 2) === '08') {
-                    $cp = substr_replace($cp, '-', 2, 0);
-                } else {
-                    $cp = substr_replace($cp, '-', 3, 0);
-                }
-                $this->workPhoneExtension = $cp;
-            }
-        }
-        return $this->workPhoneExtension;
     }
 }
