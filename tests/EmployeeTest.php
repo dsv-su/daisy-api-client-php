@@ -74,6 +74,6 @@ class EmployeeTest extends TestCase
         $this->assertEquals(1234, $p->getId());
         $this->assertEquals('Fil', $p->getFirstName());
         $this->assertEquals('Ur', $p->getLastName());
-        $this->assertEquals('fil-ur@dsv.su.se', $p->getEmail());
+        $this->assertEquals('fil-ur@dsv.su.se', $p->getMail());
     }
 }

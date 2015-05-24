@@ -36,4 +36,19 @@ class Person extends Resource
         }
         return null;
     }
+
+    public function getFirstName()
+    {
+        return $this->get('firstName');
+    }
+
+    public function getLastName()
+    {
+        return $this->get('lastName');
+    }
+
+    public function getMail()
+    {
+        return $this->get('email');
+    }
 }
