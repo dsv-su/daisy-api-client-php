@@ -51,22 +51,6 @@ class EmployeeTest extends TestCase
     /**
      * @depends testGetById
      */
-    public function testGetCompleteWorkPhone(Employee $e)
-    {
-        $this->assertEquals('+468161625', $e->getCompleteWorkPhone());
-    }
-
-    /**
-     * @depends testGetById
-     */
-    public function testGetWorkPhoneExtension(Employee $e)
-    {
-        $this->assertEquals('1625', $e->getWorkPhoneExtension());
-    }
-
-    /**
-     * @depends testGetById
-     */
     public function testGetPerson(Employee $e)
     {
         $p = $e->getPerson();

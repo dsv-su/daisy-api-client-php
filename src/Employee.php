@@ -55,9 +55,16 @@ class Employee extends Resource
         return $this->get('workPhone');
     }
 
-    public function getTitle()
+    public function getTitle($lang = 'sv')
     {
-        return $this->get('title');
+        switch ($lang) {
+            case 'sv':
+                return $this->get('title');
+            case 'en':
+                return $this->get('title_en');
+            default:
+                throw new \DomainException("Language not supported: $lang");
+        }
     }
 
     public function getPerson()
