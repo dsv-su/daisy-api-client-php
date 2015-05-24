@@ -5,7 +5,8 @@ use DsvSu\Daisy;
 
 class TestCase extends \PHPUnit_Framework_TestCase
 {
-    protected static $mock;
+    protected $mock;
+    protected $history;
 
     public static function setUpBeforeClass()
     {
@@ -20,12 +21,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         $this->mock = new \GuzzleHttp\Subscriber\Mock();
         Daisy\Client::getGuzzle()->getEmitter()->attach($this->mock);
+
+        $this->history = new \GuzzleHttp\Subscriber\History();
+        Daisy\Client::getGuzzle()->getEmitter()->attach($this->history);
     }
 
     protected function tearDown()
     {
         Daisy\Client::getGuzzle()->getEmitter()->detach($this->mock);
         unset($this->mock);
+
+        Daisy\Client::getGuzzle()->getEmitter()->detach($this->history);
+        unset($this->history);
     }
 
     protected function mockData($data)
@@ -36,5 +43,15 @@ class TestCase extends \PHPUnit_Framework_TestCase
             [ 'Content-Type' => 'application/json' ],
             $body
         ));
+    }
+
+    protected function getRequest()
+    {
+        return $this->history->getLastRequest();
+    }
+
+    protected function assertPath($path)
+    {
+        assertEquals($this->getRequest()->getPath(), $path);
     }
 }
