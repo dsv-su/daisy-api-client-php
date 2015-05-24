@@ -1,8 +1,9 @@
 <?php
 namespace DsvSu\Daisy;
 
-abstract class Resource {
-    protected function __construct(array $data)
+abstract class Resource
+{
+    public function __construct(array $data)
     {
         $this->data = $data;
     }
