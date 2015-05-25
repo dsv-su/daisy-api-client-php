@@ -6,9 +6,12 @@ use libphonenumber\PhoneNumberFormat;
 
 class EmployeeTest extends TestCase
 {
-    private function mockEmployee($json)
+    private function mockEmployee($data)
     {
-        $this->mockData($json);
+        if (!isset($data['person'])) {
+            $data['person'] = [];
+        }
+        $this->mockData(json_encode($data));
         return Employee::findByUsername('dummy');
     }
 
@@ -37,7 +40,7 @@ class EmployeeTest extends TestCase
     {
         $this->assertEquals('10:9', $e->getOffice());
 
-        $e = $this->mockEmployee('{"person":{}}');
+        $e = $this->mockEmployee([]);
         $this->assertNull($e->getOffice());
     }
 
@@ -50,7 +53,7 @@ class EmployeeTest extends TestCase
         $this->assertEquals('Troll', $e->getTitle('sv'));
         $this->assertEquals('Ogre', $e->getTitle('en'));
 
-        $e = $this->mockEmployee('{"person":{}}');
+        $e = $this->mockEmployee([]);
         $this->assertNull($e->getTitle());
         $this->assertNull($e->getTitle('en'));
     }
@@ -84,6 +87,16 @@ class EmployeeTest extends TestCase
             '+46 8 16 16 25',
             $util->format($p, PhoneNumberFormat::INTERNATIONAL)
         );
+
+        $numbers = [
+            '08-16 16 25', '+46 (8) 161625', '1625', '08-16 16 25',
+            '08-161625, 08-16 16 50'
+        ];
+        foreach ($numbers as $number) {
+            $p = $this->mockEmployee(['workPhone' => $number])
+                      ->getWorkPhone();
+            $this->assertEquals('+468161625', strval($p));
+        }
     }
 
     /**

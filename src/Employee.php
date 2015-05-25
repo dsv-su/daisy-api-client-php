@@ -5,16 +5,16 @@ class Employee extends Resource
 {
     private static $WORK_PHONE_PREFIXES = [
         [
-            '816', 1000, 4999
+            '16', 1000, 4999
         ],
         [
-            '81207', 6000, 6999
+            '1207', 6000, 6999
         ],
         [
-            '8674', 7000, 7999
+            '674', 7000, 7999
         ],
         [
-            '85537', 8000, 8999
+            '5537', 8000, 8999
         ]
     ];
 
@@ -50,18 +50,43 @@ class Employee extends Resource
         return $this->get('office');
     }
 
+    public function getRawWorkPhone()
+    {
+        return $this->get('workPhone');
+    }
+
+    public static function phonePrefixForExt($ext)
+    {
+        $ext = intval($ext);
+        foreach (self::$WORK_PHONE_PREFIXES as $prefix) {
+            if ($ext >= $prefix[1] && $ext <= $prefix[2]) {
+                return $prefix[0];
+            }
+        }
+        return null;
+    }
+
     public function getWorkPhone()
     {
         if (!isset($this->workPhone)) {
-            $wp = $this->get('workPhone');
+            $wp = $this->getRawWorkPhone();
+            $wp = trim($wp);
             if (empty($wp)) {
                 $this->workPhone = null;
             } else {
-                if ($wp[0] !== '0') {
+                $wp = trim(str_replace(['(', ')'], '', $wp));
+                if (strlen(str_replace(' ', '', $wp)) === 4) {
+                    $wp = self::phonePrefixForExt($wp) . $wp;
+                }
+                if ($wp[0] !== '0' && $wp[0] !== '+') {
                     $wp = '08' . $wp;
                 }
                 $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
-                $this->workPhone = $phoneUtil->parse($wp, 'SE');
+                try {
+                    $this->workPhone = $phoneUtil->parse($wp, 'SE');
+                } catch (\libphonenumber\NumberParseException $e) {
+                    $this->workPhone = $this->getRawWorkPhone();
+                }
             }
         }
         return $this->workPhone;
