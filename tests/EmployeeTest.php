@@ -46,11 +46,20 @@ class EmployeeTest extends TestCase
     public function testGetWorkPhone(Employee $e)
     {
         $p = $e->getWorkPhone();
+        $util = \libphonenumber\PhoneNumberUtil::getInstance();
+
         $this->assertInstanceOf('\libphonenumber\PhoneNumber', $p);
         $this->assertEquals(46, $p->getCountryCode());
-        $this->assertEquals('161625', $p->getNationalNumber());
+        $this->assertEquals('8161625', $p->getNationalNumber());
         $this->assertEquals('+468161625', strval($p));
-        $this->assertEquals('08161650', $p->getNationalNumber());
+        $this->assertEquals(
+            '08-16 16 25',
+            $util->format($p, \libphonenumber\PhoneNumberFormat::NATIONAL)
+        );
+        $this->assertEquals(
+            '+46 8 16 16 25',
+            $util->format($p, \libphonenumber\PhoneNumberFormat::INTERNATIONAL)
+        );
     }
 
     /**

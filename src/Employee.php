@@ -52,8 +52,19 @@ class Employee extends Resource
 
     public function getWorkPhone()
     {
-        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
-        return $phoneUtil->parse($this->get('workPhone'), 'SE');
+        if (!isset($this->workPhone)) {
+            $wp = $this->get('workPhone');
+            if (empty($wp)) {
+                $this->workPhone = null;
+            } else {
+                if ($wp[0] !== '0') {
+                    $wp = '08' . $wp;
+                }
+                $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+                $this->workPhone = $phoneUtil->parse($wp, 'SE');
+            }
+        }
+        return $this->workPhone;
     }
 
     public function getTitle($lang = 'sv')
