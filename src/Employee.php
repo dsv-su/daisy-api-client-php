@@ -1,6 +1,8 @@
 <?php
 namespace DsvSu\Daisy;
 
+use \libphonenumber\PhoneNumber;
+
 class Employee extends Resource
 {
     private static $WORK_PHONE_PREFIXES = [
@@ -22,39 +24,67 @@ class Employee extends Resource
     private $completeWorkPhone;
     private $workPhoneExtension;
 
+    /**
+     * @param array $data Decoded JSON data for this employee from Daisy API
+     */
     public function __construct(array $data)
     {
         parent::__construct($data);
         $this->person = new Person($data['person']);
     }
 
+    /**
+     * @param string $principal The principal name, e.g. user@su.se.
+     * @return Employee|null
+     */
     public static function findByPrincipalName($principal)
     {
         $data = Client::get("employee/username/$principal");
         return $data === null ? null : new self($data);
     }
 
+    /**
+     * @param string $username User name of the employee.
+     * @param string $domain The domain of the username (su.se by default).
+     * @return Employee|null
+     */
     public static function findByUsername($username, $domain = 'su.se')
     {
         return self::findByPrincipalName("${username}@$domain");
     }
 
+    /**
+     * Retrieve an array of Employee objects according to a search query.
+     *
+     * @param array $query The query.
+     * @return Employee[]
+     */
     public static function find(array $query)
     {
         $employees = Client::get("employee", $query);
         return array_map(function ($data) { return new self($data); }, $employees);
     }
 
+    /**
+     * @return string|null
+     */
     public function getOffice()
     {
         return $this->get('office');
     }
 
+    /**
+     * @return string|null
+     */
     public function getRawWorkPhone()
     {
         return $this->get('workPhone');
     }
 
+    /**
+     * @param string|int $ext Phone number extension
+     * @return string|null
+     */
     public static function phonePrefixForExt($ext)
     {
         $ext = intval($ext);
@@ -66,6 +96,12 @@ class Employee extends Resource
         return null;
     }
 
+    /**
+     * Get work phone number of this employee. Try to parse it to a
+     * PhoneNumber, otherwise return the raw string.
+     *
+     * @return PhoneNumber|string|null The work phone number, or null if missing.
+     */
     public function getWorkPhone()
     {
         if (!isset($this->workPhone)) {
@@ -96,6 +132,11 @@ class Employee extends Resource
         return $this->workPhone;
     }
 
+    /**
+     * @param string $lang Language to get title in (sv or en).
+     * @throws \DomainException If language is unsupported (not sv or en).
+     * @return string
+     */
     public function getTitle($lang = 'sv')
     {
         switch ($lang) {
@@ -108,6 +149,11 @@ class Employee extends Resource
         }
     }
 
+    /**
+     * Get Person object for this employee.
+     *
+     * @return Person
+     */
     public function getPerson()
     {
         return $this->person;
