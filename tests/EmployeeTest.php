@@ -105,6 +105,11 @@ class EmployeeTest extends TestCase
         $p = $this->mockEmployee(['workPhone' => '0525 123 45 67'])
                   ->getWorkPhone();
         $this->assertEquals('+465251234567', strval($p));
+
+        $nikos = 'SU: 08161295 KTH: 087904460';
+        $p = $this->mockEmployee(['workPhone' => $nikos])
+                  ->getWorkPhone();
+        $this->assertSame($nikos, $p);
     }
 
     /**
