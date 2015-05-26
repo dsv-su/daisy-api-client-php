@@ -89,14 +89,22 @@ class EmployeeTest extends TestCase
         );
 
         $numbers = [
-            '08-16 16 25', '+46 (8) 161625', '1625', '08-16 16 25',
-            '08-161625, 08-16 16 50'
+            '08-16 16 25', '+46 (8) 161625', '1625',
+            '08-161625, 08-16 16 50', '08 16 16 25'
         ];
         foreach ($numbers as $number) {
             $p = $this->mockEmployee(['workPhone' => $number])
                       ->getWorkPhone();
-            $this->assertEquals('+468161625', strval($p));
+            $this->assertEquals(
+                '+468161625',
+                strval($p),
+                "Failed to parse phone number correctly: $number"
+            );
         }
+
+        $p = $this->mockEmployee(['workPhone' => '0525 123 45 67'])
+                  ->getWorkPhone();
+        $this->assertEquals('+465251234567', strval($p));
     }
 
     /**

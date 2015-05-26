@@ -69,22 +69,26 @@ class Employee extends Resource
     public function getWorkPhone()
     {
         if (!isset($this->workPhone)) {
-            $wp = $this->getRawWorkPhone();
-            $wp = trim($wp);
+            $wp = trim($this->getRawWorkPhone());
             if (empty($wp)) {
                 $this->workPhone = null;
             } else {
-                $wp = trim(str_replace(['(', ')'], '', $wp));
-                if (strlen(str_replace(' ', '', $wp)) === 4) {
-                    $wp = self::phonePrefixForExt($wp) . $wp;
-                }
-                if ($wp[0] !== '0' && $wp[0] !== '+') {
-                    $wp = '08' . $wp;
-                }
-                $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
-                try {
-                    $this->workPhone = $phoneUtil->parse($wp, 'SE');
-                } catch (\libphonenumber\NumberParseException $e) {
+                if (preg_match('/^\+?[-\d\s()]+/', $wp, $matches)) {
+                    $wp = $matches[0];
+                    $wp = trim(str_replace(['(', ')'], '', $wp));
+                    if (strlen(str_replace(' ', '', $wp)) === 4) {
+                        $wp = self::phonePrefixForExt($wp) . $wp;
+                    }
+                    if ($wp[0] !== '0' && $wp[0] !== '+') {
+                        $wp = '08' . $wp;
+                    }
+                    $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+                    try {
+                        $this->workPhone = $phoneUtil->parse($wp, 'SE');
+                    } catch (\libphonenumber\NumberParseException $e) {
+                        $this->workPhone = $this->getRawWorkPhone();
+                    }
+                } else {
                     $this->workPhone = $this->getRawWorkPhone();
                 }
             }
