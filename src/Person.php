@@ -52,16 +52,11 @@ class Person extends Resource
         return $this->get('email');
     }
 
-    /**
-     * Get the Daisy URL for the info pop-up for this person.
-     *
-     * @param string $base_url The base URL of the Daisy server.
-     *                         Default is https://daisy.dsv.su.se.
-     * @return string
-     */
-    public function getDaisyPopupUrl($base_url = 'https://daisy.dsv.su.se')
+    /** @return string The Daisy URL for the info pop-up for this person */
+    public function getDaisyPopupUrl()
     {
-        return "$base_url/anstalld/anstalldinfo.jspa?personID="
-             . $this->getId();
+        return Client::getDaisyBaseUrl() .
+                       "/anstalld/anstalldinfo.jspa?personID=" .
+                       $this->getId();
     }
 }

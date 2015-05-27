@@ -4,6 +4,7 @@ namespace DsvSu\Daisy;
 class Client
 {
     private static $guzzle;
+    private static $daisyBaseUrl;
 
     public static function init(array $config)
     {
@@ -17,6 +18,9 @@ class Client
                 'auth' => [$config['user'], $config['pass']]
             ]
         ]);
+        self::$daisyBaseUrl = isset($config['daisy_base_url']) ?
+                              $config['daisy_base_url'] :
+                              'https://daisy.dsv.su.se';
     }
 
     public static function initUsingConfigFile($file = 'daisy_api.json')
@@ -46,5 +50,10 @@ class Client
     public static function getGuzzle()
     {
         return self::$guzzle;
+    }
+
+    public static function getDaisyBaseUrl()
+    {
+        return self::$daisyBaseUrl;
     }
 }

@@ -17,6 +17,10 @@ class CourseSegmentInstance extends Resource
      */
     public static function find(array $query)
     {
+        if (isset($query['semester']) &&
+            $query['semester'] instanceof Semester) {
+            $query['semester'] = $query['semester']->daisyFormat();
+        }
         $csis = Client::get("courseSegment", $query);
         return array_map(function ($data) { return new self($data); }, $csis);
     }
@@ -65,5 +69,27 @@ class CourseSegmentInstance extends Resource
     public function isPublished()
     {
         return $this->get('published');
+    }
+
+    /**
+     * @return string The Daisy URL for the info pop-up for this
+     *                course segment
+     */
+    public function getDaisyPopupUrl()
+    {
+        return Client::getDaisyBaseUrl() .
+                       '/servlet/Momentinfo?id=' .
+                       $this->getId();
+    }
+
+    /**
+     * @return string The Daisy URL for the schedule for this
+     *                course segment
+     */
+    public function getDaisyScheduleUrl()
+    {
+        return Client::getDaisyBaseUrl() .
+                       '/servlet/schema.moment.Momentschema?id=' .
+                       $this->getId();
     }
 }

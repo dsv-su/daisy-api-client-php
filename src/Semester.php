@@ -67,4 +67,10 @@ class Semester
         return ($this->season === self::SPRING ? 'V' : 'H') . 'T'
             . $this->year;
     }
+
+    /** @return string Semester in Daisy format (e.g., 20081) */
+    public function daisyFormat()
+    {
+        return $this->year . $this->season;
+    }
 }
