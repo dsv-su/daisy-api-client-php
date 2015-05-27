@@ -8,10 +8,22 @@ class CourseSegmentInstance extends Resource
         return new static(Client::get("courseSegment/$id"));
     }
 
+    /**
+     * Retrieve an array of CourseSegmentInstance objects according to
+     * a search query.
+     *
+     * @param array $query The query.
+     * @return CourseSegmentInstance[]
+     */
+    public static function find(array $query)
+    {
+        $csis = Client::get("courseSegment", $query);
+        return array_map(function ($data) { return new self($data); }, $csis);
+    }
+
     public function getSemester()
     {
-        return (substr($this->data['semester'], -1) == '2' ? 'HT' : 'VT') .
-              substr($this->data['semester'], 0, -1);
+        return Semester::parse($this->get('semester'));
     }
 
     public function getDesignation()
@@ -19,8 +31,39 @@ class CourseSegmentInstance extends Resource
         return $this->get('designation');
     }
 
-    public function getName()
+    public function getName($lang = 'sv')
     {
-        return $this->get('name');
+        if ($lang === 'sv') {
+            return $this->get('name');
+        } else if ($lang === 'en') {
+            return $this->get('name_en');
+        } else {
+            throw new \DomainException("unsupported language: $lang");
+        }
+    }
+
+    public function getCredits()
+    {
+        return $this->get('credits');
+    }
+
+    public function getStartDate()
+    {
+        return self::parseDate($this->get('startDate'));
+    }
+
+    public function getEndDate()
+    {
+        return self::parseDate($this->get('endDate'));
+    }
+
+    public function isVisible()
+    {
+        return $this->get('visible');
+    }
+
+    public function isPublished()
+    {
+        return $this->get('published');
     }
 }
