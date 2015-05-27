@@ -32,6 +32,6 @@ abstract class Resource
 
     protected static function parseDate($str)
     {
-        return DateTime::createFromFormat('Y-m-d', $str);
+        return \DateTime::createFromFormat('Y-m-d', $str);
     }
 }
