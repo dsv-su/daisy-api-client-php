@@ -29,4 +29,9 @@ abstract class Resource
         $dt->setTimestamp(intval($ts / 1000));
         return $dt;
     }
+
+    protected static function parseDate($str)
+    {
+        return DateTime::createFromFormat('Y-m-d', $str);
+    }
 }
