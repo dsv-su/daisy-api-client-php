@@ -20,8 +20,11 @@ class Semester
     public function __construct($year, $season)
     {
         assert(is_numeric($year));
-        assert($year > 1980);
         assert($season == self::SPRING || $season == self::FALL);
+
+        if ($year < 1980) {
+            throw new \DomainException("year too early: $year");
+        }
 
         $this->year = intval($year);
         $this->season = intval($season);
@@ -41,6 +44,8 @@ class Semester
                 intval($matches[2]),
                 strtolower($matches) === 'vt' ? self::SPRING : self::FALL
             );
+        } else {
+            throw new \DomainException("invalid semester: $str");
         }
     }
 
