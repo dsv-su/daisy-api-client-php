@@ -78,7 +78,7 @@ class Semester
      * @return Semester A new object representing the semester
      *                  after this one.
      */
-    public function next()
+    public function getNext()
     {
         if ($this->season === self::SPRING) {
             return new self($this->year, self::FALL);
