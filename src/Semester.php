@@ -42,7 +42,7 @@ class Semester
         } else if (preg_match('/^([vh]t)(\d{4})$/i', $str, $matches)) {
             return new self(
                 intval($matches[2]),
-                strtolower($matches) === 'vt' ? self::SPRING : self::FALL
+                strtolower($matches[1]) === 'vt' ? self::SPRING : self::FALL
             );
         } else {
             throw new \DomainException("invalid semester: $str");
