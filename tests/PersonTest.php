@@ -25,8 +25,21 @@ class PersonTest extends TestCase
             $p->getDaisyPopupUrl()
         );
         $this->assertEquals(
-            'https://testdaisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709',
-            $p->getDaisyPopupUrl('https://testdaisy.dsv.su.se')
+            'https://daisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709&daisy__lang=en',
+            $p->getDaisyPopupUrl('en')
         );
+        $this->assertEquals(
+            'https://daisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709',
+            $p->getDaisyPopupUrl('sv')
+        );
+    }
+
+    /**
+     * @depends testGetById
+     * @expectedException DomainException
+     */
+    public function testGetDaisyPopupUrlLang(Person $p)
+    {
+        $p->getDaisyPopupUrl('xyz');
     }
 }

@@ -53,10 +53,16 @@ class Person extends Resource
     }
 
     /** @return string The Daisy URL for the info pop-up for this person */
-    public function getDaisyPopupUrl()
+    public function getDaisyPopupUrl($lang = 'sv')
     {
-        return Client::getDaisyBaseUrl() .
-                       "/anstalld/anstalldinfo.jspa?personID=" .
-                       $this->getId();
+        $url = Client::getDaisyBaseUrl() .
+               "/anstalld/anstalldinfo.jspa?personID=" .
+               $this->getId();
+        if ($lang === 'en') {
+            $url .= "&daisy__lang=$lang";
+        } else if ($lang !== 'sv') {
+            throw new \DomainException("Language not supported: $lang");
+        }
+        return $url;
     }
 }
