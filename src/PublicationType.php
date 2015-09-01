@@ -15,7 +15,7 @@ class PublicationType
     /** @var string */
     private $enName;
 
-    public function __initialize($identifier, $svName, $enName)
+    private function __initialize($identifier, $svName, $enName)
     {
         $this->identifier = $identifier;
         $this->svName = $svName;
@@ -39,36 +39,44 @@ class PublicationType
         }
     }
 
-    private static function init()
+    private static function initRegistry()
     {
-        new PublicationType('comprehensiveDoctoralThesis');
-        new PublicationType('comprehensiveLicentiateThesis');
-        new PublicationType('studentThesis');
-        new PublicationType('article');
-        new PublicationType('survey');
-        new PublicationType('review');
-        new PublicationType('book');
-        new PublicationType('chapter');
-        new PublicationType('collect');
-        new PublicationType('conference');
-        new PublicationType('paper');
-        new PublicationType('keynote');
-        new PublicationType('manuscript');
-        new PublicationType('board');
-        new PublicationType('opponent');
-        new PublicationType('patent');
-        new PublicationType('report');
-        new PublicationType('other');
+        if (empty(self::$registry)) {
+            new self('comprehensiveDoctoralThesis');
+            new self('comprehensiveLicentiateThesis');
+            new self('studentThesis');
+            new self('article');
+            new self('survey');
+            new self('review');
+            new self('book');
+            new self('chapter');
+            new self('collect');
+            new self('conference');
+            new self('paper');
+            new self('keynote');
+            new self('manuscript');
+            new self('board');
+            new self('opponent');
+            new self('patent');
+            new self('report');
+            new self('other');
+        }
     }
 
     public static function getAll()
     {
-        init();
+        self::initRegistry();
+        return array_values(self::$registry);
     }
 
     public static function getByIdentifier($identifier)
     {
-        init();
-        return self::$registry[$identifier];
+        self::initRegistry();
+
+        if (isset(self::$registry[$identifier])) {
+            return self::$registry[$identifier];
+        } else {
+            // throw exception
+        }
     }
 }
