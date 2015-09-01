@@ -55,14 +55,11 @@ class Person extends Resource
     /** @return string The Daisy URL for the info pop-up for this person */
     public function getDaisyPopupUrl($lang = 'sv')
     {
-        $url = Client::getDaisyBaseUrl() .
-               "/anstalld/anstalldinfo.jspa?personID=" .
-               $this->getId();
-        if ($lang === 'en') {
-            $url .= "&daisy__lang=$lang";
-        } else if ($lang !== 'sv') {
+        if ($lang !== 'sv' && $lang !== 'en') {
             throw new \DomainException("Language not supported: $lang");
         }
-        return $url;
+        return Client::getDaisyBaseUrl() .
+                "/anstalld/anstalldinfo.jspa?personID=" .
+                $this->getId() . "&daisy__lang=$lang";
     }
 }

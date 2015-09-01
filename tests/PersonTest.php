@@ -21,7 +21,7 @@ class PersonTest extends TestCase
     public function testGetDaisyPopupUrl(Person $p)
     {
         $this->assertEquals(
-            'https://daisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709',
+            'https://daisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709&daisy__lang=sv',
             $p->getDaisyPopupUrl()
         );
         $this->assertEquals(
@@ -29,7 +29,7 @@ class PersonTest extends TestCase
             $p->getDaisyPopupUrl('en')
         );
         $this->assertEquals(
-            'https://daisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709',
+            'https://daisy.dsv.su.se/anstalld/anstalldinfo.jspa?personID=23709&daisy__lang=sv',
             $p->getDaisyPopupUrl('sv')
         );
     }
