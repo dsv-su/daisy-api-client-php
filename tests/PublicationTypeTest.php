@@ -19,8 +19,23 @@ class PublicationTypeTest extends TestCase
     {
         $pt = PublicationType::getByIdentifier('paper');
         $this->assertInstanceOf('DsvSu\Daisy\PublicationType', $pt);
-        $this->assertEquals('Conference paper', $pt->getName());
-
         $this->assertNull(PublicationType::getByIdentifier('xyz'));
+        return $pt;
+    }
+
+    /**
+     * @depends testGetByIdentifier
+     */
+    public function testGetIdentifier($pt)
+    {
+        $this->assertEquals('paper', $pt->getIdentifier());
+    }
+
+    /**
+     * @depends testGetByIdentifier
+     */
+    public function testGetName($pt)
+    {
+        $this->assertEquals('Conference paper', $pt->getName());
     }
 }

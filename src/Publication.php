@@ -39,7 +39,15 @@ class Publication extends Resource
      */
     public function getType()
     {
-        return $this->get('type');
+        return PublicationType::getByIdentifier($this->get('type'));
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getConference()
+    {
+        return $this->get('conference');
     }
 
     /**
@@ -51,8 +59,11 @@ class Publication extends Resource
             if ($this->get('contributors') !== null) {
                 $this->contributors = array_map(
                     function ($data) { return new Contributor($data); },
-                    $contributors
+                    $this->get('contributors')
                 );
+                usort($this->contributors, function ($a, $b) {
+                        return $a->get('order') - $b->get('order');
+                    });
             } else {
                 $this->contributors = null;
             }
