@@ -10,17 +10,12 @@ class PublicationType
     private $identifier;
 
     /** @var string */
-    private $svName;
+    private $name;
 
-    /** @var string */
-    private $enName;
-
-    private function __initialize($identifier, $svName, $enName)
+    private function __construct($identifier, $name)
     {
         $this->identifier = $identifier;
-        $this->svName = $svName;
-        $this->enName = $enName;
-        self::$registry[$identifier] = $this;
+        $this->name = $name;
     }
 
     public function getIdentifier()
@@ -28,38 +23,38 @@ class PublicationType
         return $this->identifier;
     }
 
-    public function getName($lang = 'sv')
+    public function getName()
     {
-        if ($lang === 'sv') {
-            return $this->svName;
-        } else if ($lang === 'en') {
-            return $this->enName;
-        } else {
-            
-        }
+        return $this->name;
     }
 
     private static function initRegistry()
     {
+        static $types = [
+            [ 'comprehensiveDoctoralThesis', 'Doctoral thesis' ],
+            [ 'comprehensiveLicentiateThesis', 'Licentiate thesis' ],
+            [ 'studentThesis', 'Student thesis' ],
+            [ 'article', 'Article in journal' ],
+            [ 'survey', 'Article, review/survey' ],
+            [ 'review', 'Article, book review' ],
+            [ 'book', 'Book' ],
+            [ 'chapter', 'Chapter in book' ],
+            [ 'collect', 'Collection (editor)' ],
+            [ 'conference', 'Conference proceedings (editor)' ],
+            [ 'paper', 'Conference paper' ],
+            [ 'keynote', 'Keynote' ],
+            [ 'manuscript', 'Manuscript (preprint)' ],
+            [ 'board', 'Member of examination board' ],
+            [ 'opponent', 'Opponent' ],
+            [ 'patent', 'Patent' ],
+            [ 'report', 'Report' ],
+            [ 'other', 'Other' ],
+        ];
+
         if (empty(self::$registry)) {
-            new self('comprehensiveDoctoralThesis');
-            new self('comprehensiveLicentiateThesis');
-            new self('studentThesis');
-            new self('article');
-            new self('survey');
-            new self('review');
-            new self('book');
-            new self('chapter');
-            new self('collect');
-            new self('conference');
-            new self('paper');
-            new self('keynote');
-            new self('manuscript');
-            new self('board');
-            new self('opponent');
-            new self('patent');
-            new self('report');
-            new self('other');
+            foreach ($types as $type) {
+                self::$registry[$type[0]] = new self($type[0], $type[1]);
+            }
         }
     }
 
@@ -76,7 +71,7 @@ class PublicationType
         if (isset(self::$registry[$identifier])) {
             return self::$registry[$identifier];
         } else {
-            // throw exception
+            return null;
         }
     }
 }
