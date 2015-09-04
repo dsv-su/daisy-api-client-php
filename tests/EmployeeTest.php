@@ -26,9 +26,9 @@ class EmployeeTest extends TestCase
         $this->assertEquals('GET', $req->getMethod());
         $this->assertEquals(
             '/rest/employee/username/fil-ur@su.se',
-            $req->getPath()
+            $req->getUri()->getPath()
         );
-        $this->assertCount(0, $req->getQuery());
+        $this->assertEquals('', $req->getUri()->getQuery());
 
         return $e;
     }
@@ -78,7 +78,10 @@ class EmployeeTest extends TestCase
         $this->assertInstanceOf('\libphonenumber\PhoneNumber', $p);
         $this->assertEquals(46, $p->getCountryCode());
         $this->assertEquals('8161625', $p->getNationalNumber());
-        $this->assertEquals('+468161625', strval($p));
+        $this->assertEquals(
+            '+468161625',
+            $util->format($p, PhoneNumberFormat::E164)
+        );
         $this->assertEquals(
             '08-16 16 25',
             $util->format($p, PhoneNumberFormat::NATIONAL)
@@ -97,14 +100,17 @@ class EmployeeTest extends TestCase
                       ->getWorkPhone();
             $this->assertEquals(
                 '+468161625',
-                strval($p),
+                $util->format($p, PhoneNumberFormat::E164),
                 "Failed to parse phone number correctly: $number"
             );
         }
 
         $p = $this->mockEmployee(['workPhone' => '0525 123 45 67'])
                   ->getWorkPhone();
-        $this->assertEquals('+465251234567', strval($p));
+        $this->assertEquals(
+            '+465251234567',
+            $util->format($p, PhoneNumberFormat::E164)
+        );
 
         $nikos = 'SU: 08161295 KTH: 087904460';
         $p = $this->mockEmployee(['workPhone' => $nikos])

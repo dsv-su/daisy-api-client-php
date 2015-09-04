@@ -20,7 +20,7 @@ class PublicationTest extends TestCase
         $this->assertEquals(3, count($pubs));
 
         $req = $this->getRequest();
-        $this->assertEquals('/rest/publication', $req->getPath());
+        $this->assertEquals('/rest/publication', $req->getUri()->getPath());
 
         return $pubs;
     }
