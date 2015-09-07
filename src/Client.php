@@ -31,11 +31,16 @@ class Client
         self::init($config);
     }
 
-    public static function get($path, array $query = [])
+    public static function get($path, $query = [])
     {
         if (!isset(self::$guzzle)) {
             self::initUsingConfigFile();
         }
+        if (is_array($query)) {
+            $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+            $query = preg_replace('/%5[bB]\d+%5[dD]=/', '=', $query);
+        }
+
         $response = self::$guzzle->get($path, ['query' => $query]);
         switch ($response->getStatusCode()) {
             case 200:
@@ -47,9 +52,7 @@ class Client
                     Psr7\uri_for(self::$guzzle->getConfig('base_uri')),
                     $path
                 );
-                $uri = $uri->withQuery(
-                    http_build_query($query, null, '&', PHP_QUERY_RFC3986)
-                );
+                $uri = $uri->withQuery($query);
                 throw new ServerException(
                     $response->getStatusCode()
                     . " " . $response->getReasonPhrase()

@@ -19,7 +19,7 @@ class ClientTest extends TestCase
         $this->assertEquals(['a' => 'b'], $result);
 
         $this->mockData('{}');
-        Client::get('foo/bar', [ 'a' => 'b', 'c' => 3 ]);
+        Client::get('foo/bar', ['a' => 'b', 'c' => 3]);
         $req = $this->getRequest();
         $this->assertEquals(
             'http://api.example/rest/foo/bar?a=b&c=3',
@@ -29,6 +29,11 @@ class ClientTest extends TestCase
         $this->mock->append(new Response(404));
         $result = Client::get('foo/bar');
         $this->assertNull($result);
+
+        $this->mockData('{}');
+        $result = Client::get('foo/bar', ['a' => ['b', 'c']]);
+        $req = $this->getRequest();
+        $this->assertEquals($req->getUri()->getQuery(), 'a=b&a=c');
     }
 
     /** @expectedException DsvSu\Daisy\ServerException */
