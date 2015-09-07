@@ -2,6 +2,7 @@
 namespace DsvSu\Daisy\Tests;
 
 use DsvSu\Daisy\Client;
+use GuzzleHttp\Psr7\Response;
 
 class ClientTest extends TestCase
 {
@@ -24,5 +25,16 @@ class ClientTest extends TestCase
             'http://api.example/rest/foo/bar?a=b&c=3',
             strval($req->getUri())
         );
+
+        $this->mock->append(new Response(404));
+        $result = Client::get('foo/bar');
+        $this->assertNull($result);
+    }
+
+    /** @expectedException DsvSu\Daisy\ServerException */
+    public function testGetError()
+    {
+        $this->mock->append(new Response(500));
+        Client::get('foo/bar', [ 'a' => 'b', 'c' => 3 ]);
     }
 }
