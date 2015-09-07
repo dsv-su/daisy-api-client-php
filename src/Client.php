@@ -1,6 +1,8 @@
 <?php
 namespace DsvSu\Daisy;
 
+use Guzzle\Psr7;
+
 class Client
 {
     private static $guzzle;
