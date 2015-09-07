@@ -41,8 +41,15 @@ class Client
             case 404:
                 return null;
             default:
+                $uri = Psr7\Uri::resolve(
+                    Psr7\uri_for(self::$guzzle->getConfig('base_uri')),
+                    $path
+                );
+                $uri = $uri->withQuery($query);
                 throw new ServerException(
-                    $response->getStatusCode() . " " . $response->getReasonPhrase()
+                    $response->getStatusCode()
+                    . " " . $response->getReasonPhrase()
+                    . ". URI: " . $uri
                 );
         }
     }
