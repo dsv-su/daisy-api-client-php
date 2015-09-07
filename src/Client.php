@@ -8,7 +8,7 @@ class Client
 
     public static function init(array $config)
     {
-        static::$guzzle = new \GuzzleHttp\Client(
+        self::$guzzle = new \GuzzleHttp\Client(
             [
                 'base_uri' => $config['url'],
                 'headers' => [
@@ -26,15 +26,15 @@ class Client
     public static function initUsingConfigFile($file = 'daisy_api.json')
     {
         $config = json_decode(file_get_contents($file), true);
-        static::init($config);
+        self::init($config);
     }
 
     public static function get($path, array $query = [])
     {
-        if (!isset(static::$guzzle)) {
-            static::initUsingConfigFile();
+        if (!isset(self::$guzzle)) {
+            self::initUsingConfigFile();
         }
-        $response = static::$guzzle->get($path, ['query' => $query]);
+        $response = self::$guzzle->get($path, ['query' => $query]);
         switch ($response->getStatusCode()) {
             case 200:
                 return json_decode($response->getBody(), true);
