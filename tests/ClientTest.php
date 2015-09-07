@@ -34,6 +34,11 @@ class ClientTest extends TestCase
         $result = Client::get('foo/bar', ['a' => ['b', 'c']]);
         $req = $this->getRequest();
         $this->assertEquals($req->getUri()->getQuery(), 'a=b&a=c');
+
+        $this->mockData('{}');
+        $result = Client::get('foo/bar', ['a' => null, 'b' => '', 'c' => 1]);
+        $req = $this->getRequest();
+        $this->assertEquals($req->getUri()->getQuery(), 'c=1');
     }
 
     /** @expectedException DsvSu\Daisy\ServerException */

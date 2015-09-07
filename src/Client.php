@@ -37,6 +37,9 @@ class Client
             self::initUsingConfigFile();
         }
         if (is_array($query)) {
+            $query = array_filter($query, function ($value) {
+                    return $value !== '' && $value !== [];
+                });
             $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
             $query = preg_replace('/%5[bB]\d+%5[dD]=/', '=', $query);
         }
