@@ -1,7 +1,7 @@
 <?php
 namespace DsvSu\Daisy;
 
-use Guzzle\Psr7;
+use GuzzleHttp\Psr7;
 
 class Client
 {
