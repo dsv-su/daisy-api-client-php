@@ -47,7 +47,9 @@ class Client
                     Psr7\uri_for(self::$guzzle->getConfig('base_uri')),
                     $path
                 );
-                $uri = $uri->withQuery($query);
+                $uri = $uri->withQuery(
+                    http_build_query($query, null, '&', PHP_QUERY_RFC3986)
+                );
                 throw new ServerException(
                     $response->getStatusCode()
                     . " " . $response->getReasonPhrase()
