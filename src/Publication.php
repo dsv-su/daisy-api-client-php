@@ -51,7 +51,7 @@ class Publication extends Resource
     }
 
     /**
-     * @return Contributor[]|null
+     * @return Contributor[]
      */
     public function getContributors()
     {
@@ -65,7 +65,7 @@ class Publication extends Resource
                         return $a->get('order') - $b->get('order');
                     });
             } else {
-                $this->contributors = null;
+                $this->contributors = [];
             }
         }
         return $this->contributors;
