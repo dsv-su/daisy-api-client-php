@@ -36,7 +36,17 @@ class ClientTest extends TestCase
         $this->assertEquals($req->getUri()->getQuery(), 'a=b&a=c');
 
         $this->mockData('{}');
-        $result = Client::get('foo/bar', ['a' => null, 'b' => '', 'c' => 1]);
+        $result = Client::get(
+            'foo/bar',
+            [
+                'a' => null,
+                'b' => '',
+                'c' => 1,
+                'd' => [],
+                'g' => [''],
+                'h' => [null],
+            ]
+        );
         $req = $this->getRequest();
         $this->assertEquals($req->getUri()->getQuery(), 'c=1');
     }

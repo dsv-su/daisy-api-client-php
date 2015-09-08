@@ -31,15 +31,28 @@ class Client
         self::init($config);
     }
 
+    private static function weedOut(array $array)
+    {
+        $array = array_map(function ($value) {
+                if (is_array($value)) {
+                    return self::weedOut($value);
+                } else {
+                    return $value;
+                }
+            }, $array);
+        $array = array_filter($array, function ($value) {
+                return null !== $value && '' !== $value && [] !== $value;
+            });
+        return $array;
+    }
+
     public static function get($path, $query = [])
     {
         if (!isset(self::$guzzle)) {
             self::initUsingConfigFile();
         }
         if (is_array($query)) {
-            $query = array_filter($query, function ($value) {
-                    return $value !== '' && $value !== [];
-                });
+            $query = self::weedOut($query);
             $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
             $query = preg_replace('/%5[bB]\d+%5[dD]=/', '=', $query);
         }
