@@ -19,10 +19,11 @@ class ClientTest extends TestCase
         $this->assertEquals(['a' => 'b'], $result);
 
         $this->mockData('{}');
-        Client::get('foo/bar', ['a' => 'b', 'c' => 3]);
+        Client::get('foo/bar', ['a' => 'b', 'c' => 3, 'd' => false,
+                                'e' => true]);
         $req = $this->getRequest();
         $this->assertEquals(
-            'http://api.example/rest/foo/bar?a=b&c=3',
+            'http://api.example/rest/foo/bar?a=b&c=3&d=0&e=1',
             strval($req->getUri())
         );
 
