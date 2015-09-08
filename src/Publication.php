@@ -70,4 +70,15 @@ class Publication extends Resource
         }
         return $this->contributors;
     }
+
+    /**
+     * @return string
+     */
+    public function getDaisyUrl()
+    {
+        return Client::getDaisyBaseUrl()
+                . '/anstalld/publikation/publicationInfo.jspa?'
+                . 'daisy__lang=en&publikationID='
+                . $this->getId();
+    }
 }

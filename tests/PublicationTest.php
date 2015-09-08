@@ -78,5 +78,15 @@ class PublicationTest extends TestCase
 
         $this->assertEquals('Hercules', $cs[1]->getFirstName());
         $this->assertEquals('Dalianis', $cs[1]->getLastName());
-    }    
+    }
+
+    /** @depends testFind */
+    public function testGetDaisyUrl($pubs)
+    {
+        $this->assertEquals(
+            'https://daisy.dsv.su.se/anstalld/publikation/'
+            . 'publicationInfo.jspa?daisy__lang=en&publikationID=9383',
+            $pubs[0]->getDaisyUrl()
+        );
+    }
 }
