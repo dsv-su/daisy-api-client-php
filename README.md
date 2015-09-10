@@ -7,7 +7,7 @@ administrative system Daisy from PHP applications.
 Installation
 ------------
 
-    composer require dsv-su/daisy-api-client-php
+    composer require dsv-su/daisy-api-client-php '~1.0'
 
 Usage
 -----
