@@ -39,7 +39,9 @@ foreach ($employees as $e) {
 If `daisy_api.json` exists in the current directory, it will be used
 automatically. Otherwise, you can specify its location with:
 
-    Daisy\Client::initUsingConfigFile(dirname(__FILE__) . '/daisy_api.json');
+```php
+Daisy\Client::initUsingConfigFile(dirname(__FILE__) . '/daisy_api.json');
+```
 
 Documentation
 -------------
