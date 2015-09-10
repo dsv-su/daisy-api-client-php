@@ -6,6 +6,10 @@
         {
             "name": "Per Olofsson",
             "email": "pelle@dsv.su.se"
+        },
+        {
+            "name": "Erik Thuning",
+            "email": "thuning@dsv.su.se"
         }
     ],
     "require": {
