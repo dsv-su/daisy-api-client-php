@@ -20,7 +20,7 @@ Create a file `daisy_api.json` containing
     "pass": "password"
 }
 ```
-except with user and pass replaced by yours. Now you can use it like this:
+except with user and pass replaced by yours. Now you can use the library like this:
 ```php
 require 'vendor/autoload.php';
 use DsvSu\Daisy;
