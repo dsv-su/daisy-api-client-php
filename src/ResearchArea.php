@@ -36,7 +36,7 @@ class ResearchArea
         if (empty(self::$registry)) {
             new self(10, "Business Process Management and Enterprise Modeling");
             new self(11, "Consumer-oriented mobile services");
-            new self(12, "Data and text mining");
+            new self(12, "Data Science");
             new self(13, "Digital games");
             new self(14, "Digital Systems Security");
             new self(15, "E-government and E-democracy");
