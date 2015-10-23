@@ -47,7 +47,7 @@ class ResearchArea
             new self(19, "IT Management");
             new self(20, "Language Technology");
             new self(21, "Risk and decision analysis");
-            new self(22, "Service Science &amp; Innovation");
+            new self(22, "Service Science & Innovation");
             new self(23, "Technology Enhanced Learning");
             new self(9, "(Datorspel)");
             new self(2, "(Informationssystem)");
