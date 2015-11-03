@@ -31,9 +31,6 @@ class PublicationType
     private static function initRegistry()
     {
         static $types = [
-            [ 'comprehensiveDoctoralThesis', 'Doctoral thesis' ],
-            [ 'comprehensiveLicentiateThesis', 'Licentiate thesis' ],
-            [ 'studentThesis', 'Student thesis' ],
             [ 'article', 'Article in journal' ],
             [ 'survey', 'Article, review/survey' ],
             [ 'review', 'Article, book review' ],
@@ -42,11 +39,6 @@ class PublicationType
             [ 'collect', 'Collection (editor)' ],
             [ 'conference', 'Conference proceedings (editor)' ],
             [ 'paper', 'Conference paper' ],
-            [ 'keynote', 'Keynote' ],
-            [ 'manuscript', 'Manuscript (preprint)' ],
-            [ 'board', 'Member of examination board' ],
-            [ 'opponent', 'Opponent' ],
-            [ 'patent', 'Patent' ],
             [ 'report', 'Report' ],
             [ 'other', 'Other' ],
         ];
