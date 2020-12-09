@@ -77,7 +77,7 @@ class Publication extends Resource
     public function getDaisyUrl()
     {
         return Client::getDaisyBaseUrl()
-                . '/anstalld/publikation/publicationInfo.jspa?'
+                . '/publikation/publikationInfo.jspa?'
                 . 'daisy__lang=en&publikationID='
                 . $this->getId();
     }

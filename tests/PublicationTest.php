@@ -84,8 +84,8 @@ class PublicationTest extends TestCase
     public function testGetDaisyUrl($pubs)
     {
         $this->assertEquals(
-            'https://daisy.dsv.su.se/anstalld/publikation/'
-            . 'publicationInfo.jspa?daisy__lang=en&publikationID=9383',
+            'https://daisy.dsv.su.se/publikation/'
+            . 'publikationInfo.jspa?daisy__lang=en&publikationID=9383',
             $pubs[0]->getDaisyUrl()
         );
     }
