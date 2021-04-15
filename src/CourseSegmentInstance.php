@@ -75,21 +75,21 @@ class CourseSegmentInstance extends Resource
      * @return string The Daisy URL for the info pop-up for this
      *                course segment
      */
-    public function getDaisyPopupUrl()
+    public function getDaisyPopupUrl($lang = 'sv')
     {
         return Client::getDaisyBaseUrl() .
                        '/servlet/Momentinfo?id=' .
-                       $this->getId();
+                       $this->getId() . '&daisy__lang=' . $lang;
     }
 
     /**
      * @return string The Daisy URL for the schedule for this
      *                course segment
      */
-    public function getDaisyScheduleUrl()
+    public function getDaisyScheduleUrl($lang = 'sv')
     {
         return Client::getDaisyBaseUrl() .
                        '/servlet/schema.moment.Momentschema?id=' .
-                       $this->getId();
+                       $this->getId() . '&daisy__lang=' . $lang;
     }
 }
