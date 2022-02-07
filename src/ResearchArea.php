@@ -49,19 +49,19 @@ class ResearchArea
             new self(21, "Risk and decision analysis");
             new self(30, "Software Science");
             new self(23, "Technology Enhanced Learning");
-            new self(9, "(Computer Games)");
-            new self(11, "(Consumer-oriented mobile services)");
-            new self(14, "(Digital Systems Security)");
-            new self(1, "(Information security)");
-            new self(2, "(Information system)");
-            new self(7, "(IT for health)");
-            new self(8, "(IT for learning)");
-            new self(19, "(IT Management)");
-            new self(3, "(Knowledge and communication)");
-            new self(4, "(Mobile Life)");
-            new self(22, "(Service Science & Innovation)");
-            new self(5, "(Software development)");
-            new self(6, "(System analysis)");
+            new self(9, "Computer Games (inactive)");
+            new self(11, "Consumer-oriented mobile services (inactive)");
+            new self(14, "Digital Systems Security (inactive)");
+            new self(1, "Information security (inactive)");
+            new self(2, "Information system (inactive)");
+            new self(7, "IT for health (inactive)");
+            new self(8, "IT for learning (inactive)");
+            new self(19, "IT Management (inactive)");
+            new self(3, "Knowledge and communication (inactive)");
+            new self(4, "Mobile Life (inactive)");
+            new self(22, "Service Science & Innovation (inactive)");
+            new self(5, "Software development (inactive)");
+            new self(6, "System analysis (inactive)");
         }
         return self::$registry;
     }
