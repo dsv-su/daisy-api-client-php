@@ -53,7 +53,7 @@ class Client
         }
         if (is_array($query)) {
             $query = self::weedOut($query);
-            $query = http_build_query($query, null, '&', PHP_QUERY_RFC3986);
+            $query = http_build_query($query,'', '&', PHP_QUERY_RFC3986);
             $query = preg_replace('/%5[bB]\d+%5[dD]=/', '=', $query);
         }
 
